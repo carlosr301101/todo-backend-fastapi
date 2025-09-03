@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN pip install uv
 
 RUN uv sync
 
