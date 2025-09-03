@@ -15,7 +15,7 @@
 
 * Se uso funciones asincronas en la confeccion de los endpoints que mas solicitudes se esperan que tengan, para evitar las funciones bloqueantes.
 
-* Se hizo un filtrado e indexado de la BD de Postgres para optimizar las query en las tablas y obtener un mejor performance de nuestra BD como se puede apreciar.
+* Se hizo un filtrado e indexado de la BD de Postgres para optimizar las query en las tablas y obtener un mejor performance de nuestra BD como se puede apreciar. LAs tareas son mostradas por fecha de creacion
 
 ```py
 @router.get("/tasks/{id}", response_model=TaskOut)
