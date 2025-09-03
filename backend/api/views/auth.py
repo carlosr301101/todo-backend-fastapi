@@ -52,7 +52,7 @@ def register_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_
 def login_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_basic)], db: Session = Depends(get_db)):
     # Verifica si el usuario ya existe
     user = db.query(User).filter(User.username == credentials.username).first()
-    if not user or not verify_password(credentials.password, hashed_password):
+    if not user or not verify_password(credentials.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos")
     token = create_access_token({"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer", "user_id": str(user.id)}
