@@ -32,7 +32,7 @@ def get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(secu
     except JWTError:
         raise HTTPException(status_code=401, detail="Token inválido")
 
-
+#[POST] /auth/register
 @router.post("/register")
 def register_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_basic)], db: Session = Depends(get_db)):
     # Verifica si el usuario ya existe
@@ -48,6 +48,7 @@ def register_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_
     token = create_access_token({"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer", "user_id": str(user.id)}
 
+###[POST] /auth/login
 @router.post("/login")
 def login_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_basic)], db: Session = Depends(get_db)):
     # Verifica si el usuario ya existe
@@ -57,11 +58,3 @@ def login_user(credentials: Annotated[HTTPBasicCredentials, Depends(security_bas
     token = create_access_token({"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer", "user_id": str(user.id)}
 
-
-
-
-@router.get("/me")
-def user_data( db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)):
-    return {
-        "user_id": user_id
-    }

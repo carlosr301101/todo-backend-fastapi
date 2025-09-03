@@ -7,6 +7,8 @@
 
 3. Terminado de instalar hacemos `uv run uvicorn backend.api.app::app --workers 4` Desde la raiz del proyecto. 
 
+## Enfoque Optado en la construccion de la tarea
+
 * En este caso se ha optado por un enfoque de usar nuestro backend en varios hilos pra poder compartimentar la carga de trabajo y eliminar las demoras innecesarias.
 
 * Al registrarse en la app con el endpoint `/auth/register` poniendo el usuario y contrasena devuelve un Token de Auth ademas el password se guarda hasheado en la BD.
