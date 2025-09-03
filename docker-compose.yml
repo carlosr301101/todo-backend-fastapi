@@ -17,7 +17,7 @@ services:
       retries: 5
 
   migrations:
-    build: ./backend
+    build: .
     depends_on:
       - db
     environment:
@@ -25,7 +25,7 @@ services:
     command: uv run alembic -x dburl=postgresql://todo_user:todo_pass@localhost:5432/todo_db upgrade head
 
   tests:
-    build: ./backend
+    build: .
     depends_on:
       - db
       - migrations
