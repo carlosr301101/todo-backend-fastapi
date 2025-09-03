@@ -35,7 +35,7 @@ services:
 
 
   backend:
-      build: ./backend
+      build: .
       container_name: todo-backend
       depends_on:
         - db
