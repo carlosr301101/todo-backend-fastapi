@@ -1,0 +1,63 @@
+name: Docker Compose Test Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-services:
+    runs-on: ubuntu-latest
+    
+    services:
+      docker:
+        image: docker:24.0.7
+        options: --privileged
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+
+    - name: Start database service
+      run: docker-compose up -d db
+
+    - name: Wait for database to be ready
+      run: |
+        timeout 60s bash -c '
+          until docker-compose exec db pg_isready -U todo_user -d todo_db; do
+            echo "Waiting for database to be ready..."
+            sleep 5
+          done
+          echo "Database is ready!"
+        '
+
+    - name: Run migrations
+      run: docker-compose run --rm migrations
+      env:
+        DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
+
+    - name: Run tests
+      run: docker-compose run --rm tests
+      env:
+        DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
+
+    - name: Capture logs if tests fail
+      if: failure()
+      run: |
+        echo "=== Database logs ==="
+        docker-compose logs db
+        echo "=== Migration logs ==="
+        docker-compose logs migrations
+        echo "=== Tests logs ==="
+        docker-compose logs tests
+
+    - name: Cleanup
+      if: always()
+      run: docker-compose down

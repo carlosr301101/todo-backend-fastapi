@@ -95,3 +95,6 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db), user_id: UUID =
         raise HTTPException(status_code=500, detail=f"Error al crear la tarea: {e}")
     return db_task
 ```
+
+## Extras
+1. Se crearon actions para probar la BD de postgres y Nuestra app , ademas se ejecutan los test automaticos cada vez que se hace un pull y se migra automaticamente 

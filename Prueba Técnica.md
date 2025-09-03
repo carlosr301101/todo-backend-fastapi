@@ -59,7 +59,7 @@ La API se usará en un **entorno real**. Considera lo siguiente al diseñar tu s
 ## 🌟 Plus (no obligatorio, pero valorado)
 
 - Tests automatizados.  [DONE]
-- Docker Compose para levantar la API y PostgreSQL fácilmente.  
+- Docker Compose para levantar la API y PostgreSQL fácilmente.  [DONE]
 - Logging básico para errores y auditoría.  
 - Migraciones con **Alembic**.  [DONE]
 
