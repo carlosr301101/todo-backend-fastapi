@@ -40,11 +40,11 @@ jobs:
     
   
     - name: Run migrations
-      run: |
-        uv run alembic upgrade head
       env:
         DATABASE_URL: postgresql://${{ vars.POSTGRES_USER || 'todo_user' }}:${{ vars.POSTGRES_PASSWORD || 'todo_pass' }}@localhost:5432/${{ vars.POSTGRES_DB || 'todo_db' }}
-
+      run: |
+        uv run alembic upgrade head
+      
     - name: Run tests
       run: |
         uv run pytest ./backend/api/tests
