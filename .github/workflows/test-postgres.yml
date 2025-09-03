@@ -9,14 +9,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     services:
       postgres:
         image: postgres:15  # Puedes usar postgres:16 o postgres:14 según necesites
         env:
-          POSTGRES_USER: ${{ vars.POSTGRES_USER || 'todo_user' }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD || 'todo_pass' }}
-          POSTGRES_DB: ${{ vars.POSTGRES_DB || 'todo_db' }}
+          POSTGRES_USER: todo_user
+          POSTGRES_PASSWORD: todo_pass
+          POSTGRES_DB: todo_db
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -41,7 +40,7 @@ jobs:
   
     - name: Run migrations
       env:
-        DATABASE_URL: postgresql://${{ vars.POSTGRES_USER || 'todo_user' }}:${{ vars.POSTGRES_PASSWORD || 'todo_pass' }}@localhost:5432/${{ vars.POSTGRES_DB || 'todo_db' }}
+        DATABASE_URL: postgresql://todo_user:todo_pass@127.0.0.1:5432/todo_db
       run: |
         uv run alembic upgrade head
       
@@ -49,5 +48,5 @@ jobs:
       run: |
         uv run pytest ./backend/api/tests
       env:
-        DATABASE_URL: postgresql://${{ vars.POSTGRES_USER || 'todo_user' }}:${{ vars.POSTGRES_PASSWORD || 'todo_pass' }}@localhost:5432/${{ vars.POSTGRES_DB || 'todo_db' }}
+        DATABASE_URL: postgresql://todo_user:todo_pass@127.0.0.1:5432/todo_db
         # Asegúrate de que la variable de entorno DATABASE_URL coincide con la configuración de tu base de datos
