@@ -40,16 +40,16 @@ Crea una **API REST** usando **FastAPI** y **PostgreSQL** para administrar una l
 
 La API se usará en un **entorno real**. Considera lo siguiente al diseñar tu solución:
 
-1. **Alta concurrencia**  
+1. **Alta concurrencia**  [Done]
    - La aplicación será utilizada por muchos usuarios al mismo tiempo.  
 
-2. **Grandes volúmenes de datos**  
+2. **Grandes volúmenes de datos** [Done]  
    - Algunos usuarios pueden tener cientos o miles de tareas.  
 
-3. **Escenarios de error**  
+3. **Escenarios de error**  [Done]
    - Es posible que un usuario intente acceder a una tarea que no existe o envíe datos inválidos.  
 
-4. **Seguridad**  
+4. **Seguridad**  [Done]
    - Cada usuario debe tener acceso solo a sus propias tareas.  
 
 👉 Cómo resuelvas estos puntos dependerá de tu criterio y experiencia.  
@@ -60,18 +60,18 @@ La API se usará en un **entorno real**. Considera lo siguiente al diseñar tu s
 
 - Tests automatizados.  [DONE]
 - Docker Compose para levantar la API y PostgreSQL fácilmente.  [DONE]
-- Logging básico para errores y auditoría.  
+- Logging básico para errores y auditoría.  [Done]
 - Migraciones con **Alembic**.  [DONE]
 
 ---
 
 ## 📂 Entregables
 
-- Código fuente en un repositorio público o privado (GitHub).  
+- Código fuente en un repositorio público o privado (GitHub).  [Done]
 - Un archivo **README.md** con:  
-  - Instrucciones para correr el proyecto.  
-  - Ejemplos de uso de los endpoints (puede ser con `curl` o `httpie`).  
-  - Si usas Docker, incluir instrucciones claras de levantamiento.  
+  - Instrucciones para correr el proyecto.  [Donde]
+  - Ejemplos de uso de los endpoints (puede ser con `curl` o `httpie`).  [DONE]
+  - Si usas Docker, incluir instrucciones claras de levantamiento.  [Done]
 
 ---
 

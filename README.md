@@ -25,6 +25,75 @@
 2. Desde la raiz en Linux/MacOS hacer `docker compose up --build` o en Windown Iniciar Docker Desktop.
 
 
+## Ejemplos de uso
+1. Registro y Usuarios
+```bash
+#Registrarse
+curl -X POST "http://localhost:8000/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "tu_usuario",
+    "password": "tu_contraseña"
+  }'
+
+# Iniciar sesión y obtener token
+curl -X POST "http://localhost:8000/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "tu_usuario",
+    "password": "tu_contraseña"
+  }'
+#Esto te devuelve un Token y un user ID
+```
+-----
+**Se debe guardar el Token en una variable de entorno o en algun lugar `export TOKEN="tu_token_jwt_aqui"`**
+2. CRUD de tasks
+```bash
+curl -X POST "http://localhost:8000/tasks" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "titulo": "Mi primera tarea",
+    "descripcion": "Esta es una descripción opcional"
+  }'
+```
+-----
+**Obtener tareas con su paginacion**
+
+NOTESE QUE LAS TAREAS VIENEN CON SU UUID y como tal este es el parametro que se necesita enviar en el [PUT,DELETE] y `tasks/uuid`.
+```bash
+# Listar primeras 5 tareas
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8000/tasks?limit=5&offset=0"
+
+# Listar siguientes 5 tareas
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8000/tasks?limit=5&offset=5"
+```
+-----
+**Obtener tarea especifica**
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8000/tasks/123e4567-e89b-12d3-a456-426614174000"
+```
+-----
+**Actualizar Tarea**
+```bash
+curl -X PUT "http://localhost:8000/tasks/123e4567-e89b-12d3-a456-426614174000" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "titulo": "Título actualizado",
+    "estado": "completada"
+  }'
+```
+-----
+**Eliminar Tarea**
+```bash
+curl -X DELETE "http://localhost:8000/tasks/123e4567-e89b-12d3-a456-426614174000" \
+  -H "Authorization: Bearer $TOKEN"
+```
+
 ## Extras
 1. Se crearon actions para probar la BD de postgres y Nuestra app , ademas se ejecutan los test automaticos cada vez que se hace un pull y se migra automaticamente 
 2. Para Saber sobre los Test referirse a la [Documentacion](/docs/Tests.md)
