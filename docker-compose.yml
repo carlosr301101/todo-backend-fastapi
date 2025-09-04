@@ -22,7 +22,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
-    command: uv run alembic -x dburl=postgresql://todo_user:todo_pass@localhost:5432/todo_db upgrade head
+    command: uv run alembic upgrade head
 
   tests:
     build: ./backend
