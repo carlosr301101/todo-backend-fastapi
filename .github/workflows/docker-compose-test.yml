@@ -39,14 +39,15 @@ jobs:
         '
 
     - name: Run migrations
-      run: docker-compose run --rm migrations
       env:
         DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
+      run: docker-compose run --rm migrations
+      
 
     - name: Run tests
-      run: docker-compose run --rm tests
       env:
         DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
+      run: docker-compose run --rm tests
     
     # - name: Run application
     #   run: docker-compose run --rm backend

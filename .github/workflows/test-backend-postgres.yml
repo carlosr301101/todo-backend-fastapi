@@ -43,7 +43,7 @@ jobs:
         DATABASE_URL: postgresql://todo_user:todo_pass@localhost:5432/todo_db
       run: |
         cd backend
-        uv run alembic -x dburl=postgresql://todo_user:todo_pass@localhost:5432/todo_db upgrade head
+        uv run alembic upgrade head
       
     - name: Run tests
       run: |
