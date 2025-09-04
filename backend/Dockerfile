@@ -9,5 +9,5 @@ RUN pip install --upgrade pip
 
 RUN pip install uv
 
-CMD [ "uv", "sync" ]
+RUN pip install -r requirements.txt
 
