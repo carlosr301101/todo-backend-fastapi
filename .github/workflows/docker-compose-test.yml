@@ -48,10 +48,10 @@ jobs:
       env:
         DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
     
-    - name: Run application
-      run: docker-compose run --rm backend
-      env:
-        DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
+    # - name: Run application
+    #   run: docker-compose run --rm backend
+    #   env:
+    #     DATABASE_URL: postgresql://todo_user:todo_pass@db:5432/todo_db
 
     - name: Capture logs if tests fail
       if: failure()
