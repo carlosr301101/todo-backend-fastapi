@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 COPY . /app
-
+COPY ../alembic /app/
+COPY ../alembic.ini /app/
 RUN pip install --upgrade pip
 
 RUN pip install uv
