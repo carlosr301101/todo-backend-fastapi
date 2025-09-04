@@ -42,11 +42,12 @@ jobs:
       env:
         DATABASE_URL: postgresql://todo_user:todo_pass@localhost:5432/todo_db
       run: |
-        uv run alembic -x dburl=postgresql://todo_user:todo_pass@localhost:5432/todo_db upgrade head
+        cd backend
+        uv run alembic upgrade head
       
     - name: Run tests
       run: |
-        uv run pytest ./backend/api/tests
+        uv run pytest
       env:
         DATABASE_URL: postgresql://todo_user:todo_pass@localhost:5432/todo_db
         # Asegúrate de que la variable de entorno DATABASE_URL coincide con la configuración de tu base de datos
